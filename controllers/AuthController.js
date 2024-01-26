@@ -98,7 +98,7 @@ class AuthController {
                 id : user.id,
                 name : user.name,
                 email : user.email,
-                profile : user.profile
+                profile : user.profile,
             }
 
             const token = await jwt.sign(payloadData, process.env.JWT_SECRET, {expiresIn : "1d"});

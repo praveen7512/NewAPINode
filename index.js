@@ -1,8 +1,10 @@
 import express from "express";
 import "dotenv/config";
 import ApiRoutes from "./routes/api.js";
+import fileUpload from "express-fileupload";
 const app = express();
 const PORT = process.env.PORT || 8000;
+
 
 
 //middleware
