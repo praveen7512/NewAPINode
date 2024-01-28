@@ -16,7 +16,8 @@ const authMiddleware  = async (req, res, next) => {
     jwt.verify(token , process.env.JWT_SECRET , (err, user)=>{
         if(err){
             return res.status(403).json({
-                message : "Forbidden"
+                message : "Forbidden",
+                error : err
             })
         }
         req.user = user;
