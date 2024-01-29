@@ -26,9 +26,24 @@ This project is a backend API built with Node.js and Express, designed to provid
 - Vine for robust data validation.
 - BullMQ for reliable email delivery.
 
-## Installation and Usage
+## Usage
+- Register users: POST /api/auth/register
+- Log in: POST /api/login
+- Perform CRUD operations on data: GET, POST, PUT, DELETE requests to appropriate endpoints.
+- Customize and extend functionality as needed.
 
-1. Clone the repository:
+## Contributing
+- Contributions are welcome! Feel free to open issues or pull requests for any improvements or new features.
 
-```bash
-git clone <repository_url>
+
+
+
+
+
+
+
+
+
+
+
+
