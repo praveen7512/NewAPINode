@@ -3,6 +3,8 @@ import { newsSchema } from "../validator/newsValidation.js";
 import { imageValidator , generatorRandomNum, bytesToMb, uploadImage, removeImage} from "../utils/helper.js";
 import prisma from "../DB/db.config.js";
 import NewsApiTransformer from "../transform/NewsApiTransformer.js";
+import redisCache from "../DB/redis.config.js";
+import logger from "../config/logger.js";
 
 class NewsController {
 
@@ -99,6 +101,11 @@ class NewsController {
             
         })
 
+        redisCache.del("/api/news", (err)=> {
+            if(err) throw err;
+        });
+
+
           return res.json({
             status : 200, 
             messge : "News Created Succesfully",
@@ -106,7 +113,7 @@ class NewsController {
           });
           } 
           catch (error) {
-            console.log(error)
+            logger.error(error?.message);
             if (error instanceof errors.E_VALIDATION_ERROR) {
                 console.log(error.messages)
                 return  res.status(400).json({

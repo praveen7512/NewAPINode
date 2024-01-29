@@ -4,6 +4,9 @@ import { registerSchema, loginSchema } from "../validator/authValidation.js";
 import bcrypt from "bcrypt"
 import "dotenv/config.js"
 import jwt from "jsonwebtoken" 
+import logger from "../config/logger.js";
+import { sendEmail } from "../config/mailer.js";
+import { emailQueue, emailQueueName } from "../jobs/SendEmailJob.js";
 
 
 class AuthController {
@@ -123,6 +126,45 @@ class AuthController {
             }
         }
         
+    }
+
+    static async sentTestEmail(req, res){
+        try {
+            const {email} = req.query;
+            const payload = [
+                {
+                  toEmail: email,
+                  subject: "Hey I am just testing",
+                  body: "<h1>Hello World , I am from Master backend series.</h1>",
+                },
+                {
+                  toEmail: email,
+                  subject: "You got an amazing",
+                  body: "<h1>Hello bhaiya you got this amazing offer.</h1>",
+                },
+                {
+                  toEmail: email,
+                  subject: "Kadake ki pad rahi hai thand",
+                  body: "<h1>Please apne ghar par rahe .</h1>",
+                },
+              ];
+            
+            await emailQueue.add(emailQueueName, payload);
+          //  await sendEmail(payload.toEmail, payload.subject, payload.body);
+            return res.json({
+                status : 200,
+                message : "Job added Succesfully"
+            })
+        } catch (error) {
+            console.log(error)
+             logger.error({
+                type : "Email Error" , body : error.toString()
+             });
+             return res.status(500).json({
+                 message : 'Something went wrong mere bhai',
+                 dataError : error.toString()
+             })
+        }
     }
 
 

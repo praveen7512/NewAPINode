@@ -25,11 +25,15 @@ app.use((limiter));
 app.use("/api", ApiRoutes);
 
 
+
 app.get("/", (req, res) => {
+ 
     return res.status(200).json({
         message : "Hello World"
     })
 });
+
+import "./jobs/index.js";
 
 app.listen(PORT , ()=>{
     console.log(`Server is running on port ${PORT}`);;

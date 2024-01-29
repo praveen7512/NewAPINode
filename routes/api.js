@@ -10,6 +10,7 @@ const router = Router();
 
 router.post("/auth/register", AuthController.register);
 router.post("/auth/login", AuthController.login);
+router.get("/send-email",  AuthController.sentTestEmail);
 
 //procted route hai yeh
 router.get("/profile", authMiddleware, ProfileController.index);
